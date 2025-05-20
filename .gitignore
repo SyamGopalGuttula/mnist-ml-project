@@ -13,5 +13,5 @@ __pycache__/
 # VS Code
 .vscode/
 
-# Data
-data/
+# Ignore dataset files
+data/*.csv
