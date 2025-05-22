@@ -5,27 +5,6 @@ A machine learning project that trains and compares multiple classifiers on the 
 
 ---
 
-## Project Structure
-
-```
-
-mnist-ml-project/
-├── data/                   # MNIST CSV files (train/test)
-├── models/                 # Saved model files (.pkl) — excluded from GitHub
-├── reports/                # Metrics, confusion matrices, ROC curves
-├── scripts/
-│   └── evaluate\_model.py   # Shared evaluation function
-├── notebooks/
-│   ├── logistic\_regression.ipynb
-│   ├── knn.ipynb
-│   ├── random\_forest\_model.ipynb
-│   ├── svm.ipynb
-│   └── model\_comparison.ipynb
-
-````
-
----
-
 ## Models Trained
 
 This project compares the performance of four classifiers:
