@@ -14,7 +14,6 @@ from sklearn.metrics import (
 )
 from sklearn.preprocessing import label_binarize
 
-
 def evaluate_model(model, X_test, y_test,
                    model_name='model',
                    save_dir='../reports',
