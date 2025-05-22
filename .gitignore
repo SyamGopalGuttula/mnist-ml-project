@@ -15,7 +15,7 @@ models/*.pkl
 .vscode/
 
 # Ignore dataset files
-data/*.csvmodels/*.pkl
+data/
 
 #Ignore reports
 reports/
