@@ -68,7 +68,7 @@ def evaluate_model(model, X_test, y_test,
 
         # Plot ROC curve for a few selected classes
         plt.figure(figsize=(10, 6))
-        for i in [0, 3, 5, 8]:  # Pick interesting digits
+        for i in [0, 3, 5, 8]:
             fpr, tpr, _ = roc_curve(y_test_bin[:, i], y_score[:, i])
             plt.plot(fpr, tpr, label=f'Class {i}')
         plt.plot([0, 1], [0, 1], 'k--', alpha=0.5)
@@ -105,6 +105,12 @@ def evaluate_model(model, X_test, y_test,
         'ROC Curve Path': roc_path or "N/A"
     }
 
+    # Save full metrics to a second JSON
+    metrics_path = os.path.join(save_dir, f"{model_name}_metrics.json")
+    with open(metrics_path, "w") as f:
+        json.dump(metrics, f, indent=4)
+
+    # Print and return
     for k, v in metrics.items():
         print(f"{k}: {v}")
 
