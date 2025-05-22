@@ -37,7 +37,7 @@ Each model was evaluated on:
 
 ---
 
-## How to Run This Project
+## Running This Project
 
 ### 1. Clone the repository
 
