@@ -1,9 +1,6 @@
-```markdown
 # MNIST Handwritten Digit Classification
 
 A machine learning project that trains and compares multiple classifiers on the MNIST digit dataset using Python and Scikit-learn.
-
----
 
 ## Running This Project
 
