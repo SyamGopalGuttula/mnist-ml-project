@@ -16,3 +16,6 @@ models/*.pkl
 
 # Ignore dataset files
 data/*.csvmodels/*.pkl
+
+#Ignore reports
+reports/
