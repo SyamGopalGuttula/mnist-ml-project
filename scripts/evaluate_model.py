@@ -1,6 +1,7 @@
 import time
 import os
 import joblib
+import json
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -26,7 +27,7 @@ def evaluate_model(model, X_test, y_test, model_name='model', save_dir='reports'
     accuracy = accuracy_score(y_test, y_pred)
     class_report = classification_report(y_test, y_pred, output_dict=True)
     f1_macro = class_report['macro avg']['f1-score']
-    f1_weighted = class_report['weight avg']['f1-score']
+    f1_weighted = class_report['weighted avg']['f1-score']
     cm = confusion_matrix(y_test, y_pred)
 
     #Save Confusion Matrix Plot
@@ -41,7 +42,6 @@ def evaluate_model(model, X_test, y_test, model_name='model', save_dir='reports'
     plt.close()
 
     #Save Classification Report
-    import json
     report_path = f"{save_dir}/{model_name}_classification_report.json"
     with open(report_path, "w") as f:
         json.dump(class_report, f, indent=4)
@@ -87,7 +87,7 @@ def evaluate_model(model, X_test, y_test, model_name='model', save_dir='reports'
         roc_path = None
 
     #Save Model
-    model_path = f"model/{model_name}.pkl"
+    model_path = f"models/{model_name}.pkl"
     joblib.dump(model, model_path)
     model_size_kb = os.path.getsize(model_path) / 1024
 
