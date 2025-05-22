@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import (
     accuracy_score,
-    clasification_report,
+    classification_report,
     confusion_matrix,
     roc_auc_score,
     roc_curve,
@@ -24,7 +24,7 @@ def evaluate_model(model, X_test, y_test, model_name='model', save_dir='reports'
 
     #Accuracy, F1 Score and Confusion Matrix
     accuracy = accuracy_score(y_test, y_pred)
-    class_report = clasification_report(y_test, y_pred, output_dict=True)
+    class_report = classification_report(y_test, y_pred, output_dict=True)
     f1_macro = class_report['macro avg']['f1-score']
     f1_weighted = class_report['weight avg']['f1-score']
     cm = confusion_matrix(y_test, y_pred)
