@@ -15,15 +15,20 @@ from sklearn.metrics import (
 from sklearn.preprocessing import label_binarize
 
 
-def evaluate_model(model, X_test, y_test, model_name='model', save_dir='reports'):
+def evaluate_model(model, X_test, y_test,
+                   model_name='model',
+                   save_dir='../reports',
+                   model_dir='../models'):
+    # Ensure folders exist
     os.makedirs(save_dir, exist_ok=True)
+    os.makedirs(model_dir, exist_ok=True)
 
     # Prediction Time
     start_time = time.time()
     y_pred = model.predict(X_test)
     predict_time = time.time() - start_time
 
-    # Accuracy, F1 and Confusion Matrix
+    # Accuracy, F1, Confusion Matrix
     accuracy = accuracy_score(y_test, y_pred)
     class_report = classification_report(y_test, y_pred, output_dict=True)
     f1_macro = class_report['macro avg']['f1-score']
@@ -37,12 +42,12 @@ def evaluate_model(model, X_test, y_test, model_name='model', save_dir='reports'
     plt.ylabel("Actual")
     plt.title(f"Confusion Matrix - {model_name}")
     plt.tight_layout()
-    cm_path = f"{save_dir}/{model_name}_confusion_matrix.png"
+    cm_path = os.path.join(save_dir, f"{model_name}_confusion_matrix.png")
     plt.savefig(cm_path)
     plt.close()
 
     # Save Classification Report
-    report_path = f"{save_dir}/{model_name}_classification_report.json"
+    report_path = os.path.join(save_dir, f"{model_name}_classification_report.json")
     with open(report_path, "w") as f:
         json.dump(class_report, f, indent=4)
 
@@ -61,9 +66,9 @@ def evaluate_model(model, X_test, y_test, model_name='model', save_dir='reports'
         # ROC AUC (macro)
         roc_auc = roc_auc_score(y_test_bin, y_score, average='macro', multi_class='ovr')
 
-        # Plot ROC curve for a few classes
+        # Plot ROC curve for a few selected classes
         plt.figure(figsize=(10, 6))
-        for i in [0, 3, 5, 8]:  # Pick a few interesting digits
+        for i in [0, 3, 5, 8]:  # Pick interesting digits
             fpr, tpr, _ = roc_curve(y_test_bin[:, i], y_score[:, i])
             plt.plot(fpr, tpr, label=f'Class {i}')
         plt.plot([0, 1], [0, 1], 'k--', alpha=0.5)
@@ -71,7 +76,7 @@ def evaluate_model(model, X_test, y_test, model_name='model', save_dir='reports'
         plt.xlabel("False Positive Rate")
         plt.ylabel("True Positive Rate")
         plt.legend()
-        roc_path = f"{save_dir}/{model_name}_roc_curve.png"
+        roc_path = os.path.join(save_dir, f"{model_name}_roc_curve.png")
         plt.tight_layout()
         plt.savefig(roc_path)
         plt.close()
@@ -81,8 +86,6 @@ def evaluate_model(model, X_test, y_test, model_name='model', save_dir='reports'
         roc_path = None
 
     # Save the Model
-    model_dir = "models"
-    os.makedirs(model_dir, exist_ok=True)
     model_path = os.path.join(model_dir, f"{model_name}.pkl")
     joblib.dump(model, model_path)
     model_size_kb = os.path.getsize(model_path) / 1024
